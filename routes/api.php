@@ -6,9 +6,12 @@ use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\Cartcontroller;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\Ordercontroller;
+use App\Http\Controllers\Commentcontroller;
 use App\Http\Controllers\Productcontroller;
 use App\Http\Controllers\Categorycontroller;
+use App\Http\Controllers\Complaintcontroller;
 use App\Http\Controllers\Departmentcontroller;
+use App\Http\Controllers\Answer_complaintcontroller;
 
 
 
@@ -35,6 +38,7 @@ Route::post('/register',[Authcontroller::class,'register']);
 Route::get('/departments',[Departmentcontroller::class,'departments']);
 Route::post('/categorys',[Categorycontroller::class,'categorys']);
 Route::post('/productsForUser',[Productcontroller::class,'productsForUser']);
+Route::post('/productComments',[Commentcontroller::class,'productComments']);
 
 Route::group(['middleware' => 'jwtauth'], function(){
 
@@ -82,4 +86,27 @@ Route::post('/addToOrder',[Ordercontroller::class,'addToOrder']);
 Route::post('/DoneaddOrder',[Ordercontroller::class,'DoneaddOrder']);
 Route::post('/deleteFromOrder',[Ordercontroller::class,'deleteFromOrder']);
 
+//
+Route::get('/Comments',[Commentcontroller::class,'Comments']);
+Route::get('/userComments',[Commentcontroller::class,'userComments']);
+Route::post('/addToComment',[Commentcontroller::class,'addToComment']);
+Route::post('/UpdateComment',[Commentcontroller::class,'UpdateComment']);
+Route::post('/deleteFromComment',[Commentcontroller::class,'deleteFromComment']);
+Route::post('/deleteFromCommentByAdmin',[Commentcontroller::class,'deleteFromCommentByAdmin']);
+
+//
+Route::get('/Complaints',[Complaintcontroller::class,'Complaints']);
+Route::get('/userComplaints',[Complaintcontroller::class,'userComplaints']);
+Route::post('/addToComplaint',[Complaintcontroller::class,'addToComplaint']);
+Route::post('/deleteFromComplaint',[Complaintcontroller::class,'deleteFromComplaint']);
+Route::post('/deleteFromComplaintByAdmin',[Complaintcontroller::class,'deleteFromComplaintByAdmin']);
+
+Route::get('/Answer_complaints',[Answer_complaintcontroller::class,'Answer_complaints']);
+Route::post('/userAnswer_complaints',[Answer_complaintcontroller::class,'userAnswer_complaints']);
+Route::post('/addToAnswer_complaint',[Answer_complaintcontroller::class,'addToAnswer_complaint']);
+Route::post('/updateAnswer_complaintByAdmin',[Answer_complaintcontroller::class,'updateAnswer_complaintByAdmin']);
+Route::post('/deleteFromAnswer_complaintByAdmin',[Answer_complaintcontroller::class,'deleteFromAnswer_complaintByAdmin']);
+
 });
+
+

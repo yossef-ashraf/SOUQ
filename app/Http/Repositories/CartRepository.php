@@ -43,7 +43,8 @@ if($cart)
 {
 
 $cart->update([
-'count' => ($cart->count + $request->count)
+'count' => ($cart->count + $request->count),
+'updated_at	'=> time()
 ]);
 
 }else
@@ -91,7 +92,8 @@ return $this->apiResponse(400, 'validation error', $validations->errors());
 
 $cart= Cart::where([ ['user_id', Auth::user()->id], ['product_id', $request->product_id] ])->first();
 $cart->update([
-'count' => ($cart->count + $request->count)
+'count' => ($cart->count + $request->count),
+'updated_at	'=> time()
 ]);
 return $this->apiResponse(200, 'Update Cart');
 }

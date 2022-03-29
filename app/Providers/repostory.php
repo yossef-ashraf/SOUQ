@@ -41,6 +41,19 @@ class repostory extends ServiceProvider
             'App\Http\Interfaces\OrderInterface',
             'App\Http\Repositories\OrderRepository'
         );
+        $this->app->bind(
+            'App\Http\Interfaces\CommentInterface',
+            'App\Http\Repositories\CommentRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\ComplaintInterface',
+            'App\Http\Repositories\ComplaintRepository'
+        );
+        $this->app->bind(
+            'App\Http\Interfaces\Answer_complaintInterface',
+            'App\Http\Repositories\Answer_complaintRepository'
+        );
+
     }
 
     /**

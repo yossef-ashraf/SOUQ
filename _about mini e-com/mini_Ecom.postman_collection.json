@@ -359,6 +359,21 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "maa",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{url}}adddepartment",
 							"host": [
@@ -474,6 +489,26 @@
 						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "catt",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "department_id",
+									"value": "4",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{url}}addcategory",
 							"host": [
@@ -534,6 +569,223 @@
 			]
 		},
 		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}Comments",
+							"host": [
+								"{{url}}Comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userComments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}userComments",
+							"host": [
+								"{{url}}userComments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "productComments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}productComments",
+							"host": [
+								"{{url}}productComments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addToComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comments",
+									"value": "test comment",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}addToComment",
+							"host": [
+								"{{url}}addToComment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "product_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "comments",
+									"value": "retest",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}UpdateComment",
+							"host": [
+								"{{url}}UpdateComment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFromComment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "product_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}deleteFromComment",
+							"host": [
+								"{{url}}deleteFromComment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFromCommentByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}deleteFromCommentByAdmin",
+							"host": [
+								"{{url}}deleteFromCommentByAdmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "product",
 			"item": [
 				{
@@ -544,7 +796,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODMyNDA1OSwiZXhwIjoxNjQ4MzI3NjU5LCJuYmYiOjE2NDgzMjQwNTksImp0aSI6ImExaDFCZWJiMUsxamo3aDQiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.u6sgkY7-sWmtMiLvhODqDm6c4Qp21Qe2UBEcYohVxO4",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMTgwNCwiZXhwIjoxNjQ4NTE1NDA0LCJuYmYiOjE2NDg1MTE4MDQsImp0aSI6Im5OOW44eWh3eXdvVk5md2UiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.vfOQudOBWzTJl10_5MkzMG13DeCwyqH4m9kxMexjotA",
 									"type": "string"
 								}
 							]
@@ -573,8 +825,18 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
 							"raw": "{{url}}productsForUser",
 							"host": [
@@ -592,7 +854,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODMyOTA5NiwiZXhwIjoxNjQ4MzMyNjk2LCJuYmYiOjE2NDgzMjkwOTYsImp0aSI6IlR5T1RkaXc1NUZkWG5WVXAiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.yQf98Yz-iItUWfu6rnsUy_zmfdXKQj9KI9i7YKZm5gM",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMTgwNCwiZXhwIjoxNjQ4NTE1NDA0LCJuYmYiOjE2NDg1MTE4MDQsImp0aSI6Im5OOW44eWh3eXdvVk5md2UiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.vfOQudOBWzTJl10_5MkzMG13DeCwyqH4m9kxMexjotA",
 									"type": "string"
 								}
 							]
@@ -605,7 +867,7 @@
 								{
 									"key": "img",
 									"type": "file",
-									"src": "/G:/for you/pic/wallpaperflare.com_wallpaper (1).jpg"
+									"src": "/C:/Users/hp/Pictures/Screenshots/Screenshot (10).png"
 								},
 								{
 									"key": "name",
@@ -625,6 +887,21 @@
 								{
 									"key": "desc",
 									"value": "t102",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
 									"type": "text"
 								}
 							]
@@ -1160,6 +1437,326 @@
 							"raw": "{{url}}deleteFromOrder",
 							"host": [
 								"{{url}}deleteFromOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Complaint",
+			"item": [
+				{
+					"name": "Complaints",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}Complaints",
+							"host": [
+								"{{url}}Complaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userComplaints",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}userComplaints",
+							"host": [
+								"{{url}}userComplaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addToComplaint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Complaints",
+									"value": "tetsyy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}addToComplaint",
+							"host": [
+								"{{url}}addToComplaint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFromComplaint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}deleteFromComplaint",
+							"host": [
+								"{{url}}deleteFromComplaint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFromComplaintByAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}deleteFromComplaintByAdmin",
+							"host": [
+								"{{url}}deleteFromComplaintByAdmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Answer_complaint",
+			"item": [
+				{
+					"name": "Answer_complaints",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}Answer_complaints",
+							"host": [
+								"{{url}}Answer_complaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userAnswer_complaints",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "complaint_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}userAnswer_complaints",
+							"host": [
+								"{{url}}userAnswer_complaints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addToAnswer_complaint",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "complaint_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "ururu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}addToAnswer_complaint",
+							"host": [
+								"{{url}}addToAnswer_complaint"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAnswer_complaintByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "complaint_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "answer",
+									"value": "tertst",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}updateAnswer_complaintByAdmin",
+							"host": [
+								"{{url}}updateAnswer_complaintByAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFromAnswer_complaintByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODU5NjA3NCwiZXhwIjoxNjQ4NTk5Njc0LCJuYmYiOjE2NDg1OTYwNzQsImp0aSI6IjB6WUNFVUpFZWxuUFdSUVkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.HfMHKdeCDn8t118Pnw6gsEhiP8cGAcyArONyI1c28gA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}deleteFromAnswer_complaintByAdmin",
+							"host": [
+								"{{url}}deleteFromAnswer_complaintByAdmin"
 							]
 						}
 					},

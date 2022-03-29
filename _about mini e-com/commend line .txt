@@ -5,6 +5,7 @@ php artisan serve
 
 php artisan migrate
 
-php artisan db:seed --class="user"
+php artisan db:seed --class="users"
 
 
+    

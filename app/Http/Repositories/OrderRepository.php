@@ -80,7 +80,8 @@ $count=$request->count + $Order_item->count ;
 if ($count >= 0) {
 $Order_item->update([
 'count' => $count ,
-'total_price' => $unit_pricre * $count
+'total_price' => $unit_pricre * $count,
+'updated_at	'=> time()
 ]);
 }
 }else
@@ -113,7 +114,8 @@ $product = Product::where([ ['id', $pro->product_id], ['status', true] ])->first
 if ($product->stock >= $Or->count)
 {
 $product->update([
-'stock'=>( $product->stock - $Or->count )
+'stock'=>( $product->stock - $Or->count ),
+'updated_at	'=> time()
 ]);
 }else{
 $mess .=" product ".$product->name." not has ".$Or->count;
@@ -125,7 +127,8 @@ $total_price =$total_price + $Or->total_price;
 $Order->update([
 'user_id' => Auth::user()->id,
 'status-checkout'  => 1,
-'total_price' => $total_price
+'total_price' => $total_price,
+'updated_at	'=> time()
 ]);
 return $this->apiResponse(200, 'chekout order');
 }
