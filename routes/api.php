@@ -7,6 +7,8 @@ use App\Http\Controllers\Cartcontroller;
 use App\Http\Controllers\usercontroller;
 use App\Http\Controllers\Ordercontroller;
 use App\Http\Controllers\Productcontroller;
+use App\Http\Controllers\Categorycontroller;
+use App\Http\Controllers\Departmentcontroller;
 
 
 
@@ -30,7 +32,9 @@ use App\Http\Controllers\Productcontroller;
 
 Route::post('/login',[Authcontroller::class,'login']);
 Route::post('/register',[Authcontroller::class,'register']);
-Route::get('/productsForUser',[Productcontroller::class,'productsForUser']);
+Route::get('/departments',[Departmentcontroller::class,'departments']);
+Route::post('/categorys',[Categorycontroller::class,'categorys']);
+Route::post('/productsForUser',[Productcontroller::class,'productsForUser']);
 
 Route::group(['middleware' => 'jwtauth'], function(){
 
@@ -42,6 +46,18 @@ Route::get('/users',[Usercontroller::class,'users']);
 Route::post('/updateuser',[Usercontroller::class,'updateuser']);
 Route::post('/updateuserByAdmin',[Usercontroller::class,'updateuserByAdmin']);
 Route::post('/deleteuser',[Usercontroller::class,'deleteuser']);
+
+//
+Route::get('/departmentForAdmin',[Departmentcontroller::class,'departmentForAdmin']);
+Route::post('/adddepartment',[Departmentcontroller::class,'adddepartment']);
+Route::post('/deletedepartment',[Departmentcontroller::class,'deletedepartment']);
+Route::post('/updatedepartmentByAdmin',[Departmentcontroller::class,'updatedepartmentByAdmin']);
+
+//
+Route::get('/categoryForAdmin',[Categorycontroller::class,'categoryForAdmin']);
+Route::post('/addcategory',[Categorycontroller::class,'addcategory']);
+Route::post('/deletecategory',[Categorycontroller::class,'deletecategory']);
+Route::post('/updatecategoryByAdmin',[Categorycontroller::class,'updatecategoryByAdmin']);
 
 //
 Route::get('/products',[Productcontroller::class,'products']);

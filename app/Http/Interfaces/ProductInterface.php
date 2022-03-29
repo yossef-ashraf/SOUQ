@@ -6,7 +6,7 @@ interface ProductInterface
 
     public function products();
 
-    public function productsForUser();
+    public function productsForUser($request);
 
     public function deleteproduct($request);
 

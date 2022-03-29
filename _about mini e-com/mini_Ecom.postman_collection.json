@@ -110,7 +110,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0Nzc2OTI4NCwiZXhwIjoxNjQ3NzcyODg0LCJuYmYiOjE2NDc3NjkyODQsImp0aSI6IjBtajYxYWV5WHEyaHdhOFAiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.SXkMYuWqbfXAMvgGj12oM3ZRdLeNLBpR9EzDIItIc6U",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
 									"type": "string"
 								}
 							]
@@ -286,6 +286,246 @@
 							"raw": "{{url}}updateuserByAdmin",
 							"host": [
 								"{{url}}updateuserByAdmin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "department",
+			"item": [
+				{
+					"name": "departments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}departments",
+							"host": [
+								"{{url}}departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "departmentForAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}departmentForAdmin",
+							"host": [
+								"{{url}}departmentForAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adddepartment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}adddepartment",
+							"host": [
+								"{{url}}adddepartment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatedepartmentByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}updatedepartmentByAdmin",
+							"host": [
+								"{{url}}updatedepartmentByAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletedepartment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}deletedepartment",
+							"host": [
+								"{{url}}deletedepartment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "categorys",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categorys",
+							"host": [
+								"{{url}}categorys"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "categoryForAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categoryForAdmin",
+							"host": [
+								"{{url}}categoryForAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addcategory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}addcategory",
+							"host": [
+								"{{url}}addcategory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatecategoryByAdmin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}updatecategoryByAdmin",
+							"host": [
+								"{{url}}updatecategoryByAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletecategory",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTY0ODUxMDI3MCwiZXhwIjoxNjQ4NTEzODcwLCJuYmYiOjE2NDg1MTAyNzAsImp0aSI6InJaUkxOazVIcnI0VHRybkMiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.EL5BTYdLCoNMSJbbpvlk-V8MPLUe5M5rjSjpXa7CH10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}deletecategory",
+							"host": [
+								"{{url}}deletecategory"
 							]
 						}
 					},

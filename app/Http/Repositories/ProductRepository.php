@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\ProductInterface;
 use App\Http\Traits\ApiResponseTrait;
 use App\Models\Product;
+use App\Models\category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,19 +18,30 @@ use ApiResponseTrait;
 
 public function products()
 {
-$arr=Product::get();
+if (auth()->user()->auth == 'admin' )
+{
+$arr=Product::with('category')->get();
 return $this->apiResponse(200,"products",null,$arr);
 }
+}
 
-public function productsForUser()
+public function productsForUser($request)
 {
-$arr=Product::where( 'status' , true )->get();
+$validations = Validator::make($request->all(),[
+'category_id' => 'required|exists:categories,id'
+]);
+
+if($validations->fails())
+{
+return $this->apiResponse(400, 'validation error', $validations->errors());
+}
+
+$arr=Product::where([['category_id', $request->category_id],['status' , true ]])->with('category')->get();
 return $this->apiResponse(200,"products",null,$arr);
 }
 
 public function addproduct($request)
 {
-
 
 if (auth()->user()->auth == 'admin')
 {
@@ -42,14 +54,14 @@ $validations = Validator::make($request->all(),[
 'discount' => 'required',
 'status' => 'required',
 'price' => 'required',
-'stock' => 'required'
+'stock' => 'required',
+'category_id' => 'required|exists:categories,id'
 ]);
 
 if($validations->fails())
 {
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
-
 
 if ($request->img->extension() == "png" || $request->img->extension() == "jpg" || $request->img->extension() == "jpeg")
 {
@@ -62,9 +74,10 @@ Product::create([
 'status' => $request->status,
 'img' => asset('images/product/'.$imagePath),
 'price' => $request->price,
-'stock' => $request->stock
+'stock' => $request->stock,
+'category_id' => $request->category_id
 ]);
-return $this->apiResponse(200, 'account was created');
+return $this->apiResponse(200, 'Product was created');
 
 }else {
 return $this->apiResponse(400, 'validation error', "extension not supported");
@@ -100,8 +113,6 @@ return $this->apiResponse(400,"you not admin ");
 }
 
 
-
-
 public function updateproductByAdmin($request)
 {
 if (auth()->user()->auth == 'admin' )
@@ -115,7 +126,8 @@ $validations = Validator::make($request->all(),[
 'discount' => 'required',
 'status' => 'required',
 'price' => 'required',
-'stock' => 'required'
+'stock' => 'required',
+'category_id' => 'required|exists:categories,id'
 ]);
 if($validations->fails())
 {
@@ -126,10 +138,13 @@ return $this->apiResponse(400, 'validation error', $validations->errors());
 
 if ($request->img->extension() == "png" || $request->img->extension() == "jpg" || $request->img->extension() == "jpeg")
 {
+$Product= Product::where( 'id' , $request->id )->first();
+
+unlink(public_path('images/product'.explode('/product',$Product->img)[1]));
+
 $imagePath = time() . '_product.' . $request->img->extension();
 $request->img->move(public_path('images/product'), $imagePath);
 
-$Product= Product::where( 'id' , $request->id )->first();
 $Product->update([
 'id' => $request->id,
 'name' => $request->name,
@@ -138,10 +153,12 @@ $Product->update([
 'status' => $request->status,
 'img' => asset('images/product/'.$imagePath),
 'price' => $request->price,
-'stock' => $request->stock
+'stock' => $request->stock,
+'category_id' => $request->category_id,
+'updated_at	'=> time()
 ]);
 
-return $this->apiResponse(200, 'account was update');
+return $this->apiResponse(200, 'Product was update');
 
 
 }else

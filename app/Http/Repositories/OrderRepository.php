@@ -102,20 +102,25 @@ return $this->apiResponse(200, 'add to order');
 public function chekout()
 {
 $total_price=0;
+$mess="  ";
 $Order=Order::where([['user_id', auth()->user()->id ],['status-checkout' , false]])->with('order_item')->first();
 if ($Order)
 {
 foreach($Order->order_item as $Or)
 {
-$total_price =$total_price + $Or->total_price;
-
 foreach ($Order->order_item as $pro) {
 $product = Product::where([ ['id', $pro->product_id], ['status', true] ])->first();
+if ($product->stock >= $Or->count)
+{
 $product->update([
 'stock'=>( $product->stock - $Or->count )
 ]);
+}else{
+$mess .=" product ".$product->name." not has ".$Or->count;
 }
 
+}
+$total_price =$total_price + $Or->total_price;
 };
 $Order->update([
 'user_id' => Auth::user()->id,

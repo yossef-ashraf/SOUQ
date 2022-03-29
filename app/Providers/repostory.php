@@ -22,6 +22,14 @@ class repostory extends ServiceProvider
             'App\Http\Repositories\UserRepository'
         );
         $this->app->bind(
+            'App\Http\Interfaces\DepartmentInterface',
+            'App\Http\Repositories\DepartmentRepository'
+        );
+            $this->app->bind(
+            'App\Http\Interfaces\CategoryInterface',
+            'App\Http\Repositories\CategoryRepository'
+        );
+        $this->app->bind(
             'App\Http\Interfaces\ProductInterface',
             'App\Http\Repositories\ProductRepository'
         );
@@ -33,7 +41,6 @@ class repostory extends ServiceProvider
             'App\Http\Interfaces\OrderInterface',
             'App\Http\Repositories\OrderRepository'
         );
-
     }
 
     /**
