@@ -72,8 +72,8 @@ if($validations->fails())
 {
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
-
-User::update([
+$User= User::where( 'id' , $request->id )->first();
+$User->update([
 'id' => auth()->user()->id,
 'name' => $request->name,
 'email' => $request->email,
