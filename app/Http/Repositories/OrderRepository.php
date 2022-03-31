@@ -75,7 +75,7 @@ if ($Order_item)
 {
 $price=$Order_item->products->price;
 $discount=$Order_item->products->discount;
-$unit_pricre=($price-($price*$discount));
+$unit_pricre=($price-($price * ($discount / 100 )));
 $count=$request->count + $Order_item->count ;
 if ($count >= 0) {
 $Order_item->update([
@@ -90,7 +90,7 @@ Order_item::create([
 'order_id' => $request->order_id,
 'product_id' => $request->product_id,
 'count' =>$request->count,
-'total_price' =>(($product->price-($product->price*$product->discount))*$request->count)
+'total_price' =>(($product->price-($product->price*($product->discount / 100 )))*$request->count)
 ]);
 }
 // end of add or update Order_item
