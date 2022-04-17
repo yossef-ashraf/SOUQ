@@ -76,15 +76,9 @@ Route::post('/UpdateCart',[Cartcontroller::class,'UpdateCart']);
 Route::post('/deleteFromCart',[Cartcontroller::class,'deleteFromCart']);
 
 //
-Route::get('/allOrderForAdmin',[Ordercontroller::class,'allOrderForAdmin']);
-Route::get('/allOrderForUser',[Ordercontroller::class,'allOrderForUser']);
-Route::get('/OrderCheckout',[Ordercontroller::class,'OrderCheckout']);
-Route::get('/OrdersDone',[Ordercontroller::class,'OrdersDone']);
-Route::get('/addOrder',[Ordercontroller::class,'addOrder']);
-Route::get('/chekout',[Ordercontroller::class,'chekout']);
-Route::post('/addToOrder',[Ordercontroller::class,'addToOrder']);
-Route::post('/DoneaddOrder',[Ordercontroller::class,'DoneaddOrder']);
-Route::post('/deleteFromOrder',[Ordercontroller::class,'deleteFromOrder']);
+    Route::post('/chekout',[Ordercontroller::class,'chekout']);
+    Route::get('/allOrder',[Ordercontroller::class,'allOrder']);
+    Route::get('/OrdersDone',[Ordercontroller::class,'OrdersDone']);
 
 //
 Route::get('/Comments',[Commentcontroller::class,'Comments']);

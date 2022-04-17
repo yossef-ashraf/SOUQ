@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Models\cart;
 use App\Models\Product;
 use App\Models\order_item;
 use Illuminate\Support\Facades\Auth;
@@ -9,19 +10,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class StockValidationOrder implements Rule
 {
-    public $productId;
-    public $orderId;
+    public $err=0;
     public $message= "";
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($productId , $orderId)
-    {
-        $this->productId = $productId;
-        $this->orderId = $orderId;
-    }
 
     /**
      * Determine if the validation rule passes.
@@ -32,23 +27,23 @@ class StockValidationOrder implements Rule
      */
     public function passes($attribute, $value)
     {
-        $product = Product::where([ ['id', $this->productId], ['stock', '>=', $value], ['status', true] ])->first();
-        if($product)
-        {
-            $order_item = order_item::where([ ['order_id', $this->orderId], ['product_id', $product->id] ])->first();
-            if($order_item)
-            {
-                if($order_item->count + $value <= $product->stock)
-                {
-                    return true;
-                }
-                $this->message="the stock can not grap it";
-                return false;
+
+        // dd('hi');
+
+        $cartitems=cart::where('user_id', auth()->user()->id)->with('products')->get();
+        foreach ($cartitems as $item) {
+            if ($item->products->stock < $item->count ) {
+                $this->message .= " product ". $item->products->name ." have not stock for your order ";
             }
-            return true;
+            if (!$item->products->status ) {
+                $this->message .= " product ". $item->products->name ." can not be in your order ";
+            }
         }
-        $this->message="plz chek product";
-        return false;
+        if ($this->message) {
+            return false;
+        }
+        return true ;
+
     }
 
     /**
