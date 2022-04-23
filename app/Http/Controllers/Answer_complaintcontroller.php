@@ -21,11 +21,6 @@ public function Answer_complaints()
 return $this->Answer_complaintInterface->Answer_complaints();
 }
 
-public function userAnswer_complaints(Request $request)
-{
-return $this->Answer_complaintInterface->userAnswer_complaints($request);
-}
-
 public function addToAnswer_complaint(Request $request)
 {
 return $this->Answer_complaintInterface->addToAnswer_complaint($request);

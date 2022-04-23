@@ -96,8 +96,9 @@ class OrderRepository implements OrderInterface
     }
 
 //////
-    public function DoneaddOrder($request)
+    public function OrdersDone($request)
     {
+//        dd($request->id);
         if (auth()->user()->auth == 'admin')
         {
             $validations = Validator::make($request->all(),[

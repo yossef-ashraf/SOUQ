@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->boolean('status_order');
-            $table->boolean('status-checkout');
             $table->double('total_price');
             $table->timestamps();
         });

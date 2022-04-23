@@ -1,9 +1,7 @@
 <?php
 namespace App\Http\Repositories;
 
-use App\Models\User;
 use App\Models\Complaint;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Support\Facades\Validator;
@@ -20,10 +18,6 @@ if (auth()->user()->auth == 'admin')
 $arr=Complaint::with('user')->get();
 return $this->apiResponse(200,"Complaints",null,$arr);
 }
-return $this->apiResponse(400,"you not admin");
-}
-//
-public function userComplaints(){
 $arr=Complaint::where('user_id', auth()->user()->id )->get();
 return $this->apiResponse(200,"Complaints",null,$arr);
 }
@@ -44,9 +38,10 @@ Complaint::create([
 ]);
 return $this->apiResponse(200, 'added order');
 }
-
 //
 public function deleteFromComplaint($request){
+
+
 $validations = Validator::make($request->all(),[
 'id' => 'required|exists:Complaints,id',
 ]);
@@ -55,29 +50,14 @@ if($validations->fails())
 {
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
-
-$Complaint=Complaint::where([['user_id', auth()->user()->id ],['id',$request->id]])->first();
+    if (auth()->user()->auth == 'admin')
+    {
+        $Complaint=Complaint::where('id',$request->id)->first();
+    }else {
+        $Complaint = Complaint::where([['user_id', auth()->user()->id], ['id', $request->id]])->first();
+    }
 $Complaint->delete();
 return $this->apiResponse(200,"delete Done");
-}
-//
-
-public function deleteFromComplaintByAdmin($request){
-
-$validations = Validator::make($request->all(),[
-'id' => 'required|exists:Complaints,id',
-'user_id' => 'required|exists:users,id'
-]);
-
-if($validations->fails())
-{
-return $this->apiResponse(400, 'validation error', $validations->errors());
-}
-
-$Complaint=Complaint::where([['user_id', $request->user_id ],['id',$request->id]])->first();
-$Complaint->delete();
-return $this->apiResponse(200,"delete Done");
-
 }
 
 

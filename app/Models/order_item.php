@@ -18,7 +18,7 @@ protected $fillable = [ 'order_id', 'product_id', 'count', 'total_price'];
 
 public function products()
 {
-return $this->belongsTo(product::class, 'product_id', 'id')->select( 'id', 'name', 'img', 'price','discount', 'desc', 'categorie_id');
+return $this->belongsTo(product::class, 'product_id', 'id')->select( 'id', 'name', 'img', 'price','discount', 'desc', 'category_id');
 }
 
 }

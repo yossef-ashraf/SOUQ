@@ -106,8 +106,6 @@ public function deleteFromCommentByAdmin($request){
 
 $validations = Validator::make($request->all(),[
 'id' => 'required|exists:Comments,id',
-'user_id' => 'required|exists:users,id',
-'product_id' => 'required|exists:products,id',
 ]);
 
 if($validations->fails())
@@ -115,7 +113,7 @@ if($validations->fails())
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
 
-$Comment=Comment::where([['user_id', $request->id ],['product_id',$request->product_id]])->first();
+$Comment=Comment::where('id', $request->id )->first();
 $Comment->delete();
 return $this->apiResponse(200,"delete Done");
 

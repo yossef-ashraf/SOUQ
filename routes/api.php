@@ -79,7 +79,7 @@ Route::post('/deleteFromCart',[Cartcontroller::class,'deleteFromCart']);
 //
     Route::post('/chekout',[Ordercontroller::class,'chekout']);
     Route::get('/allOrder',[Ordercontroller::class,'allOrder']);
-    Route::get('/OrdersDone',[Ordercontroller::class,'OrdersDone']);
+    Route::post('/OrdersDone',[Ordercontroller::class,'OrdersDone']);
 
 //
 Route::get('/Comments',[Commentcontroller::class,'Comments']);
@@ -91,13 +91,10 @@ Route::post('/deleteFromCommentByAdmin',[Commentcontroller::class,'deleteFromCom
 
 //
 Route::get('/Complaints',[Complaintcontroller::class,'Complaints']);
-Route::get('/userComplaints',[Complaintcontroller::class,'userComplaints']);
 Route::post('/addToComplaint',[Complaintcontroller::class,'addToComplaint']);
 Route::post('/deleteFromComplaint',[Complaintcontroller::class,'deleteFromComplaint']);
-Route::post('/deleteFromComplaintByAdmin',[Complaintcontroller::class,'deleteFromComplaintByAdmin']);
 
 Route::get('/Answer_complaints',[Answer_complaintcontroller::class,'Answer_complaints']);
-Route::post('/userAnswer_complaints',[Answer_complaintcontroller::class,'userAnswer_complaints']);
 Route::post('/addToAnswer_complaint',[Answer_complaintcontroller::class,'addToAnswer_complaint']);
 Route::post('/updateAnswer_complaintByAdmin',[Answer_complaintcontroller::class,'updateAnswer_complaintByAdmin']);
 Route::post('/deleteFromAnswer_complaintByAdmin',[Answer_complaintcontroller::class,'deleteFromAnswer_complaintByAdmin']);

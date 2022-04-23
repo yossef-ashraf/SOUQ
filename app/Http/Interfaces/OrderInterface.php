@@ -8,6 +8,6 @@ interface OrderInterface
 
     public function chekout($request);
 
-    public function DoneaddOrder($request);
+    public function OrdersDone($request);
 
 }

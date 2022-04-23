@@ -7,6 +7,7 @@ use App\Http\Traits\ApiResponseTrait;
 use App\Models\Product;
 use App\Models\category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Rules\email;
@@ -115,13 +116,13 @@ return $this->apiResponse(400,"you not admin ");
 
 public function updateproductByAdmin($request)
 {
+//    dd(auth()->user()->auth);
 if (auth()->user()->auth == 'admin' )
 {
 
 $validations = Validator::make($request->all(),[
 'id' => 'required|exists:products,id',
 'name' => 'required|min:3',
-'img' => 'required',
 'desc' => 'required',
 'discount' => 'required',
 'status' => 'required',
@@ -133,39 +134,48 @@ if($validations->fails())
 {
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
+
+try{
+    $request=$request;
 // dd($request);
+    DB::transaction(function()use($request){
+        $Product= Product::where( 'id' , $request->id )->first();
+        $Product->update([
+            'id' => $request->id,
+            'name' => $request->name,
+            'desc' => $request->desc,
+            'discount' => $request->discount,
+            'status' => $request->status,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'category_id' => $request->category_id,
+            'updated_at	'=> time()
+        ]);
+        if ($request->img) {
+            if ($request->img->extension() == "png" || $request->img->extension() == "jpg" || $request->img->extension() == "jpeg") {
+                unlink(public_path('images/product' . explode('/product', $Product->img)[1]));
+                $imagePath = time() . '_product.' . $request->img->extension();
+                $request->img->move(public_path('images/product'), $imagePath);
 
+                $Product->update([
+                    'img' => asset('images/product/' . $imagePath),
+                ]);
+            } else {
+                return $this->apiResponse(400, 'validation error', "extension not supported");
+            }
+        }
 
-if ($request->img->extension() == "png" || $request->img->extension() == "jpg" || $request->img->extension() == "jpeg")
-{
-$Product= Product::where( 'id' , $request->id )->first();
-
-unlink(public_path('images/product'.explode('/product',$Product->img)[1]));
-
-$imagePath = time() . '_product.' . $request->img->extension();
-$request->img->move(public_path('images/product'), $imagePath);
-
-$Product->update([
-'id' => $request->id,
-'name' => $request->name,
-'desc' => $request->desc,
-'discount' => $request->discount,
-'status' => $request->status,
-'img' => asset('images/product/'.$imagePath),
-'price' => $request->price,
-'stock' => $request->stock,
-'category_id' => $request->category_id,
-'updated_at	'=> time()
-]);
-
-return $this->apiResponse(200, 'Product was update');
-
-
-}else
-{
-return $this->apiResponse(400, 'validation error', "extension not supported");
+});
+    return $this->apiResponse(200, 'Product was update');
+} catch (\Exception $th) {
+    return $this->apiResponse(400, 'catch error', $th->getMessage() );
 }
+
+}else{
+
+    return $this->apiResponse(400, 'you not admin');
 }
+
 }
 
 

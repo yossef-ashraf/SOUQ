@@ -21,19 +21,9 @@ public function complaints()
 return $this->ComplaintInterface->complaints();
 }
 
-public function userComplaints()
-{
-return $this->ComplaintInterface->userComplaints();
-}
-
 public function addToComplaint(Request $request)
 {
 return $this->ComplaintInterface->addToComplaint($request);
-}
-
-public function deleteFromComplaintByAdmin(Request $request)
-{
-return $this->ComplaintInterface->deleteFromComplaintByAdmin($request);
 }
 
 public function deleteFromComplaint(Request $request)

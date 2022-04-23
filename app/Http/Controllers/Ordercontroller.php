@@ -23,8 +23,8 @@ class Ordercontroller extends Controller
         return $this->OrderInterface->chekout($request);
     }
 
-    public function DoneaddOrder(Request $request){
-        return $this->OrderInterface->DoneaddOrder($request);
+    public function OrdersDone(Request $request){
+        return $this->OrderInterface->OrdersDone($request);
     }
 
 }
