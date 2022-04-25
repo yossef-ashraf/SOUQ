@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnswerComplaintsTable extends Migration
+class CreateComplaintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateAnswerComplaintsTable extends Migration
      */
     public function up()
     {
-        Schema::create('answer_complaints', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-
-            $table->unsignedBigInteger('complaint_id');
-            $table->foreign('complaint_id')->references('id')->on('complaints')->onDelete('CASCADE');
-            
+            $table->unsignedBigInteger('title_id');
+            $table->foreign('title_id')->references('id')->on('title_complaints');
+            $table->longText('complaint');
+            $table->boolean('status');
             $table->longText('answer');
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateAnswerComplaintsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answer_complaints');
+        Schema::dropIfExists('complaints');
     }
 }

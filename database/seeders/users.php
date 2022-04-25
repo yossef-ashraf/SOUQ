@@ -16,13 +16,17 @@ class users extends Seeder
     public function run()
     {
 User::create([
-'name'=>'Admin',
-'email'=>'admin@admin.com',
-'password'=>Hash::make("12345678"),
-'adress'=>'13s city',
-'phone'=>'0233589090',
-'auth'=>'admin'
-//'auth'=>'user'
+    'first_name'=>'Admin',
+    'last_name'=>'Admin',
+    'img'=>"",
+    'email'=>'admin@admin.com',
+    'password'=>Hash::make("12345678"),
+    'country'=>'13s city',
+    'city'=>'13s city',
+    'street_adress'=>'13s city',
+    'phone'=>'0233589090',
+    'auth'=>'admin'
+    //'auth'=>'user'
 ]);
 }
 }

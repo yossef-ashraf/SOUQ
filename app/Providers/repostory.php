@@ -46,12 +46,12 @@ class repostory extends ServiceProvider
             'App\Http\Repositories\CommentRepository'
         );
         $this->app->bind(
-            'App\Http\Interfaces\ComplaintInterface',
-            'App\Http\Repositories\ComplaintRepository'
+            'App\Http\Interfaces\Title_complaintInterface',
+            'App\Http\Repositories\Title_complaintRepository'
         );
         $this->app->bind(
-            'App\Http\Interfaces\Answer_complaintInterface',
-            'App\Http\Repositories\Answer_complaintRepository'
+            'App\Http\Interfaces\ComplaintInterface',
+            'App\Http\Repositories\ComplaintRepository'
         );
 
     }

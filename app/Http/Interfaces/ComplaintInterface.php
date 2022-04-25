@@ -8,6 +8,8 @@ interface ComplaintInterface
 
     public function addToComplaint($request);
 
+    public function  updateComplaint($request);
+
     public function deleteFromComplaint($request);
 
 }

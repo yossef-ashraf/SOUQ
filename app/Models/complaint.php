@@ -12,12 +12,25 @@ class complaint extends Model
 
     protected $fillable = [
         'user_id',
-        'complaint'
+        'title_id',
+        'complaint',
+        'status',
+        'answer'
         ];
 
         public function user()
         {
-        return $this->belongsTo(User::class, 'user_id', 'id')->select( 'id', 'name' , 'email');
+        return $this->belongsTo(User::class, 'user_id', 'id')->select(
+        'id',
+        'first_name',
+        'last_name',
+        'email'
+    );
+        }
+
+        public function title()
+        {
+        return $this->belongsTo(title_complaint::class, 'title_id', 'id')->select( 'id', 'title');
         }
 
 }

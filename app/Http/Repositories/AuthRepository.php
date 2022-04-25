@@ -31,29 +31,44 @@ return $this->respondWithToken($token);
 public function register($request)
 {
 // dd($request);
-$validations = Validator::make($request->all(),[
-'name' => 'required|min:3',
+$validations = Validator::make($request->all(), [
+'first_name' => 'required|min:3',
+'last_name' => 'required|min:3',
 'email' => ['required', new email,'email:rfc,dns'],
 'password' => 'required|min:8',
-'adress' => 'required|min:5',
+'street_adress' => 'required|min:5',
+'city' => 'required|min:3',
+'country' => 'required|min:3',
+'img'=>'required|min:3',
 'phone' => 'required'
 ]);
 
-if($validations->fails())
+if ($validations->fails())
 {
 return $this->apiResponse(400, 'validation error', $validations->errors());
 }
 
+if ($request->img->extension() == "png" || $request->img->extension() == "jpg" || $request->img->extension() == "jpeg")
+{
+$imagePath = time() . '_product.' . $request->img->extension();
+$request->img->move(public_path('images/users'), $imagePath);
 User::create([
-'name' => $request->name,
+'first_name' => $request->first_name,
+'last_name' => $request->last_name,
 'email' => $request->email,
 'password' => Hash::make($request->password),
-'adress' => $request->adress,
+'street_adress' => $request->street_adress,
+'city' => $request->city,
+'country' => $request->country,
 'phone' => $request->phone,
+'img' => asset('images/users/'.$imagePath),
 'auth' =>'user'
 ]);
 
 return $this->apiResponse(200, 'account was created');
+}else{
+    return $this->apiResponse(400, 'validation error', $request->img->extension().'not supported');
+}
 }
 
 

@@ -26,6 +26,11 @@ public function addToComplaint(Request $request)
 return $this->ComplaintInterface->addToComplaint($request);
 }
 
+public function updateComplaint(Request $request)
+{
+return $this->ComplaintInterface->updateComplaint($request);
+}
+
 public function deleteFromComplaint(Request $request)
 {
 return $this->ComplaintInterface->deleteFromComplaint($request);
