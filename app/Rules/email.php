@@ -7,14 +7,17 @@ use App\Models\User;
 
 class email implements Rule
 {
+    protected $valiedEmail=false;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id)
     {
-        //
+        // //
+        //     # code...
+            $this->valiedEmail= User::where('id', $id)->first();;
     }
 
     /**
@@ -30,8 +33,13 @@ class email implements Rule
 // use Illuminate\Support\Facades\Validator;
 // $rules = ['name' => 'unique:users,name'];
 
-    $email= User::where('email',$value)->doesntExist() ;
-    return $email ;
+$email= User::where('email', $value)->doesntExist() ;
+// dd($this->valiedEmail ==  $value , $email);
+        if ($this->valiedEmail->email ==  $value || $email) {
+            return true ;
+        }
+
+        return false;
     }
 
     /**

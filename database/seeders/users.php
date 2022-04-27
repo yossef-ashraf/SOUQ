@@ -25,6 +25,7 @@ User::create([
     'city'=>'13s city',
     'street_adress'=>'13s city',
     'phone'=>'0233589090',
+    'img' => asset('images/users/def_user_img.jpg'),
     'auth'=>'admin'
     //'auth'=>'user'
 ]);

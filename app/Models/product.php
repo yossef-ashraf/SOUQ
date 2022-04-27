@@ -26,4 +26,10 @@ public function category()
 return $this->belongsTo(category::class, 'category_id', 'id')->select( 'id', 'name' );
 }
 
+public function images(){
+
+    return $this->hasMany(product_image::class, 'product_id', 'id');
+
+}
+
 }
