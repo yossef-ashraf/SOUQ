@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+//code
+
 class JwtMiddleware
 {
     use ApiResponseTrait;

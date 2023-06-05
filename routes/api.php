@@ -1,24 +1,19 @@
 <?php
 
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\usercontroller;
-use App\Http\Controllers\Authcontroller;
-
-use App\Http\Controllers\Departmentcontroller;
-use App\Http\Controllers\Categorycontroller;
-use App\Http\Controllers\Productcontroller;
-
-use App\Http\Controllers\Cartcontroller;
-use App\Http\Controllers\Ordercontroller;
-
-use App\Http\Controllers\Commentcontroller;
-use App\Http\Controllers\Complaintcontroller;
-use App\Http\Controllers\Title_complaintcontroller;
-
-
-
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\ShippingController;
+use Illuminate\Routing\Route as RoutingRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,79 +25,107 @@ use App\Http\Controllers\Title_complaintcontroller;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// Auth Routes
+Route::group(['middleware'=>'Lang'],function(){
+    // Route::get('/CategoryController',[CategoryController::class,'Categories']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+        Route::post('/login',[AuthController::class,'login']);
+        Route::post('/register',[AuthController::class,'register']);
+        Route::post('/forget_password',[AuthController::class,'forget_password']);
+        Route::post('/check_otp',[AuthController::class,'check_otp']);
+        Route::post('/check_forget_password',[AuthController::class,'check_forget_password']);
 
+        // Data web Site Routes
+        Route::get('/Categories',[CategoryController::class,'Categories']);
+        Route::post('/Category',[CategoryController::class,'Category']);
+        Route::post('/Categories/Search',[CategoryController::class,'Search']);
 
+        Route::get('/Products',[ProductController::class,'Products']);
+        Route::get('/Product/{id}',[ProductController::class,'Product']);
+        Route::get('/Products/new',[ProductController::class,'NewProducts']);
+        Route::post('/Products/Search',[ProductController::class,'Search']);
+        Route::post('/ProductByCategory',[ProductController::class,'ProductByCategory']);
 
-Route::post('/login',[Authcontroller::class,'login']);
-Route::post('/register',[Authcontroller::class,'register']);
-Route::get('/departments',[Departmentcontroller::class,'departments']);
-Route::post('/categorys',[Categorycontroller::class,'categorys']);
-Route::post('/productsForUser',[Productcontroller::class,'productsForUser']);
-Route::post('/productComments',[Commentcontroller::class,'productComments']);
+        Route::post('/AddContact',[ContactController::class,'AddContact']);
 
-Route::group(['middleware' => 'jwtauth'], function(){
+        Route::get('/Shipping',[ShippingController::class,'Shipping']);
 
-//
-Route::get('/auth',[Authcontroller::class,'auth']);
+        Route::post('/Discount',[DiscountController::class,'Discount']);
 
-//
-Route::get('/users',[Usercontroller::class,'users']);
-Route::post('/updateuser',[Usercontroller::class,'updateuser']);
-Route::post('/updateuserByAdmin',[Usercontroller::class,'updateuserByAdmin']);
-Route::post('/deleteuser',[Usercontroller::class,'deleteuser']);
+     Route::group(['middleware'=>'Jwt'],function(){
 
-//
-Route::get('/departmentForAdmin',[Departmentcontroller::class,'departmentForAdmin']);
-Route::post('/adddepartment',[Departmentcontroller::class,'adddepartment']);
-Route::post('/deletedepartment',[Departmentcontroller::class,'deletedepartment']);
-Route::post('/updatedepartmentByAdmin',[Departmentcontroller::class,'updatedepartmentByAdmin']);
+        Route::get('/logout',[AuthController::class,'logout']);
+        Route::get('/auth',[AuthController::class,'auth']);
+        Route::post('/UpdateUser',[AuthController::class,'UpdateUser']);
 
-//
-Route::get('/categoryForAdmin',[Categorycontroller::class,'categoryForAdmin']);
-Route::post('/addcategory',[Categorycontroller::class,'addcategory']);
-Route::post('/deletecategory',[Categorycontroller::class,'deletecategory']);
-Route::post('/updatecategoryByAdmin',[Categorycontroller::class,'updatecategoryByAdmin']);
+        Route::get('/Cart',[CartController::class,'Cart']);
+        Route::post('/AddCart',[CartController::class,'AddCart']);
+        Route::post('/UpdateCart',[CartController::class,'UpdateCart']);
+        Route::post('/DeleteCart',[CartController::class,'DeleteCart']);
 
-//
-Route::get('/products',[Productcontroller::class,'products']);
-Route::post('/addproduct',[Productcontroller::class,'addproduct']);
-Route::post('/deleteproduct',[Productcontroller::class,'deleteproduct']);
-Route::post('/updateproductByAdmin',[Productcontroller::class,'updateproductByAdmin']);
+        Route::get('/Orders',[OrderController::class,'Orders']);
+        Route::post('/CheckOut',[OrderController::class,'CheckOut']);
+        Route::post('/DiscountOrderUser',[OrderController::class,'DiscountOrderUser']);
+        Route::post('/DeleteOrderUser',[OrderController::class,'DeleteOrderUser']);
 
-//
-Route::get('/userCart',[Cartcontroller::class,'userCart']);
-Route::post('/addToCart',[Cartcontroller::class,'addToCart']);
-Route::post('/UpdateCart',[Cartcontroller::class,'UpdateCart']);
-Route::post('/deleteFromCart',[Cartcontroller::class,'deleteFromCart']);
+        Route::post('/Comments',[CommentController::class,'Comments']);
+        Route::get('/MyComments',[CommentController::class,'MyComments']);
+        Route::post('/AddComment',[CommentController::class,'AddComment']);
+        Route::post('/DeleteComment/User',[CommentController::class,'DeleteCommentByUser']);
 
-//
-Route::post('/chekout',[Ordercontroller::class,'chekout']);
-Route::get('/allOrder',[Ordercontroller::class,'allOrder']);
-Route::post('/OrdersDone',[Ordercontroller::class,'OrdersDone']);
+ });
+// admin Routes
+        Route::group(['middleware'=>'Admin'],function(){
 
-//
-Route::get('/Comments',[Commentcontroller::class,'Comments']);
-Route::get('/userComments',[Commentcontroller::class,'userComments']);
-Route::post('/addToComment',[Commentcontroller::class,'addToComment']);
-Route::post('/UpdateComment',[Commentcontroller::class,'UpdateComment']);
-Route::post('/deleteFromComment',[Commentcontroller::class,'deleteFromComment']);
-Route::post('/deleteFromCommentByAdmin',[Commentcontroller::class,'deleteFromCommentByAdmin']);
+            // Auth Route
+            Route::get('/Users',[AuthController::class,'User']);
+            Route::post('/updateAuthUser',[AuthController::class,'updateAuthUser']);
+            Route::post('/DeleteUser',[AuthController::class,'DeleteUser']);
 
-//
-Route::get('/Complaints',[Complaintcontroller::class,'Complaints']);
-Route::post('/updateComplaint',[Complaintcontroller::class,'updateComplaint']);
-Route::post('/addToComplaint',[Complaintcontroller::class,'addToComplaint']);
-Route::post('/deleteFromComplaint',[Complaintcontroller::class,'deleteFromComplaint']);
+            // Category Route
+            Route::post('/AddCategory',[CategoryController::class,'AddCategory']);
+            Route::post('/UpdateCategory',[CategoryController::class,'UpdateCategory']);
+            Route::post('/DeleteCategory',[CategoryController::class,'DeleteCategory']);
 
-Route::get('/Title_complaints',[Title_complaintcontroller::class,'Title_complaints']);
-Route::post('/addToTitle_complaint',[Title_complaintcontroller::class,'addToTitle_complaint']);
-Route::post('/updateTitle_complaintByAdmin',[Title_complaintcontroller::class,'updateTitle_complaintByAdmin']);
-Route::post('/deleteFromTitle_complaintByAdmin',[Title_complaintcontroller::class,'deleteFromTitle_complaintByAdmin']);
+            // Product Route
+            Route::get('/AdminProduct',[ProductController::class,'AdminProduct']);
+            Route::post('/AddProduct',[ProductController::class,'AddProduct']);
+            Route::post('/UpdateProduct',[ProductController::class,'UpdateProduct']);
+            Route::post('/DeleteProduct',[ProductController::class,'DeleteProduct']);
 
-});
+            // ProductSize Route
+            Route::get('/AdminProductSize',[ProductController::class,'AdminProductSize']);
+            Route::post('/AddProductSize',[ProductController::class,'AddProductSize']);
+            Route::post('/UpdateProductSize',[ProductController::class,'UpdateProductSize']);
+            Route::post('/DeleteProductSize',[ProductController::class,'DeleteProductSize']);
 
+            // Shipping Route
+            Route::get('/AdminShipping',[ShippingController::class,'AdminShipping']);
+            Route::post('/AddShipping',[ShippingController::class,'AddShipping']);
+            Route::post('/UpdateShipping',[ShippingController::class,'UpdateShipping']);
+            Route::post('/DeleteShipping',[ShippingController::class,'DeleteShipping']);
+
+            // Discount Route
+            Route::get('/AdminDiscount',[DiscountController::class,'AdminDiscount']);
+            Route::post('/AddDiscount',[DiscountController::class,'AddDiscount']);
+            Route::post('/UpdateDiscount',[DiscountController::class,'UpdateDiscount']);
+            Route::post('/DeleteDiscount',[DiscountController::class,'DeleteDiscount']);
+
+            // Order Route
+            Route::get('/AdminOrder',[OrderController::class,'AdminOrder']);
+            Route::post('/OrderState',[OrderController::class,'OrderState']);
+            Route::post('/DeleteOrder',[OrderController::class,'DeleteOrder']);
+
+            // Comment Route
+            Route::get('/AdminComment',[CommentController::class,'AdminComment']);
+            Route::post('/CommentState',[CommentController::class,'CommentState']);
+            Route::post('/DeleteComment/Admin',[CommentController::class,'DeleteCommentByAdmin']);
+
+            // Contact Route
+            Route::get('/AdminContact',[ContactController::class,'ContactAdmin']);
+            Route::post('/DeleteContact',[ContactController::class,'DeleteContact']);
+
+        });
+
+    });
 

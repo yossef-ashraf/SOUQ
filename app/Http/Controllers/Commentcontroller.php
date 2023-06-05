@@ -2,52 +2,133 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use App\Http\Interfaces\CommentInterface;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Traits\ApiResponseTrait;
+use Illuminate\Support\Facades\Validator;
 
-class Commentcontroller extends Controller
+class CommentController extends Controller
 {
+use ApiResponseTrait;
 
-public $CommentInterface;
-public function __construct(CommentInterface $CommentInterface)
+public function AddComment(Request $request)
 {
-$this->CommentInterface = $CommentInterface;
+    $validations = Validator::make($request->all(),[
+        'product_id' => 'required|exists:Products,id',
+        'comment' => 'required',
+        ]);
+
+        if($validations->fails())
+        {
+        return $this->apiResponse(400, 'validation error', $validations->errors());
+        }
+
+        Comment::create([
+        'user_id' => Auth::user()->id,
+        'product_id' => $request->product_id,
+        'comment' => $request->comment,
+        'status' => 'Pending',
+        ]);
+        $Comment = Comment::with('User','Product')->get();
+        return $this->apiResponse(200, 'your comment now is pending by admin when Approved your comment then will appear',$Comment);
 }
 
-public function Comments()
+public function DeleteCommentByUser(Request $request)
 {
-return $this->CommentInterface->Comments();
+    $validations = Validator::make($request->all(),[
+    'id' => 'required|exists:Comments,id',
+    ]);
+
+    if($validations->fails())
+    {
+    return $this->apiResponse(400, 'validation error', $validations->errors());
+    }
+
+    $Comment=Comment::where([['id', $request->id ],['user_id', auth()->user()->id ]])->first();
+    if ($Comment) {
+    $Comment->delete();
+    $Comment=Comment::where([['product_id',$request->product_id],['status','Approved']])->with('User')->get();
+    return $this->apiResponse(200,"delete Done",$Comment);
+    }
+    return $this->apiResponse(400,"you can delete Done");
+}
+public function MyComments()
+{
+        $Comment=Comment::where( 'user_id' , Auth::user()->id)->with('Product')->get();
+        return $this->apiResponse(200,"Comments",null,$Comment);
+
 }
 
-public function userComments()
+public function Comments(Request $request)
 {
-return $this->CommentInterface->userComments();
+    $validations = Validator::make($request->all(),[
+        'product_id' => 'required|exists:Products,id',
+        ]);
+        if($validations->fails())
+        {
+        return $this->apiResponse(400, 'validation error', $validations->errors());
+        }
+        $Comment=Comment::where([['product_id',$request->product_id],['status','Approved']])->with('User')->get();
+        return $this->apiResponse(200,"Comments",null,$Comment);
+
 }
 
-public function productComments(Request $request)
+public function AdminComment()
 {
-return $this->CommentInterface->productComments($request);
+    $Comment = Comment::with('User','Product')->get();
+    return $this->apiResponse(200," all commends ",null,$Comment);
 }
 
-public function addToComment(Request $request)
+public function CommentState(Request $request)
 {
-return $this->CommentInterface->addToComment($request);
+    try {
+        $validations = Validator::make($request->all(),[
+            'id' => 'required|exists:Comments,id',
+            'status' => 'required',
+            ]);
+
+            if($validations->fails())
+            {
+            return $this->apiResponse(400, 'validation error', $validations->errors());
+            }
+
+        if ($request->status == 'Rejected') {
+            $Comment=Comment::where('id', $request->id )->first();
+            $Comment->delete();
+            return $this->apiResponse(200,"delete Done");
+            # code...
+        }
+            $Comment=Comment::where('id', $request->id )->first();
+            $Comment->update([
+                'status' => $request->status
+                ]);
+                $Comment = Comment::with('User','Product')->get();
+                return $this->apiResponse(200,"Done",$Comment);
+    } catch (\Throwable $th) {
+        //throw $th;
+        return $this->apiResponse(400,throw $th);
+    }
+
+
 }
 
-public function UpdateComment(Request $request)
+public function DeleteCommentByAdmin(Request $request)
 {
-return $this->CommentInterface->UpdateComment($request);
+    $validations = Validator::make($request->all(),[
+    'id' => 'required|exists:Comments,id',
+    ]);
+
+    if($validations->fails())
+    {
+    return $this->apiResponse(400, 'validation error', $validations->errors());
+    }
+
+    $Comment=Comment::where('id', $request->id )->first();
+    $Comment->delete();
+    $Comment = Comment::with('User','Product')->get();
+    return $this->apiResponse(200,"delete Done",$Comment);
 }
 
-public function deleteFromComment(Request $request)
-{
-return $this->CommentInterface->deleteFromComment($request);
-}
-
-public function deleteFromCommentByAdmin(Request $request)
-{
-return $this->CommentInterface->deleteFromComment($request);
-}
 
 }

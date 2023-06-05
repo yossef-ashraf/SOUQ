@@ -2,17 +2,23 @@
 
 namespace App\Models;
 
-use App\Models\product;
+use App\Http\Traits\HasTranslation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Translatable\HasTranslations;
 
-class category extends Model
+class Category extends Model
 {
-use HasFactory;
-protected $fillable = [ 'name','status','department_id'];
 
-public function products()
-{
-return $this->hasMany(product::class, 'categorie_id', 'id');
-}
+    use HasFactory,HasTranslation;
+    protected $fillable = [
+    'name',
+    ];
+
+    public $translatable = ['name'];
+
+    public function Product()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'id')->with('ProductSize');
+    }
 }

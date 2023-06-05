@@ -2,34 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Traits\HasTranslation;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class product extends Model
+class Product extends Model
 {
-use HasFactory;
-
-
-protected $fillable = [
-'name',
-'img',
-'price',
-'stock',
-'status',
-'discount',
-'desc',
-'category_id'
+    use HasFactory,HasTranslation;
+    protected $fillable = [
+    'name',
+    'description',
+    'discount',
+    'state',
+    'image',
+    'quantity',
+    'price',
+    'category_id'
 ];
 
-public function category()
-{
-return $this->belongsTo(category::class, 'category_id', 'id')->select( 'id', 'name' );
-}
+public $translatable = ['name', 'description'];
 
-public function images(){
 
-    return $this->hasMany(product_image::class, 'product_id', 'id');
 
-}
 
 }

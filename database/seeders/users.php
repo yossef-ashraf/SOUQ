@@ -3,8 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\ProductSize;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class users extends Seeder
 {
@@ -15,19 +19,27 @@ class users extends Seeder
      */
     public function run()
     {
-User::create([
-    'first_name'=>'Admin',
-    'last_name'=>'Admin',
-    'img'=>"",
-    'email'=>'admin@admin.com',
-    'password'=>Hash::make("12345678"),
-    'country'=>'13s city',
-    'city'=>'13s city',
-    'street_adress'=>'13s city',
-    'phone'=>'0233589090',
-    'img' => asset('images/users/def_user_img.jpg'),
-    'auth'=>'admin'
-    //'auth'=>'user'
-]);
-}
+        //
+        User::create([
+            'firstname' => 'admin',
+            'lastname' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make(12345678),
+            'phone' => '0101010' ,
+            // 'address' => 'address' ,
+            'auth' =>'admin'
+        ]);
+                 User::create([
+                    'firstname' => 'test',
+                    'lastname' => 'test',
+                    'email' => 'test@test.com',
+                    'password' => Hash::make(12345678),
+                    'phone' => '0202020' ,
+                    // 'address' => 'address' ,
+                    'auth' =>'user'
+                 ]);
+
+
+
+    }
 }
