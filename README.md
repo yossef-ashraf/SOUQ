@@ -2,6 +2,7 @@
 
 <div class="article-container">
   <p>Yossef Ashraf, a software engineer from Egypt. It has extensive experience in developing innovative programs and solutions.</p>
+    <a href="https://linktr.ee/dev_yossef"> My Projects </a>
     <p>Contact Information:</p>
  <ul>
     <li>Email : yossefa538@gmail.com</li>
@@ -9,7 +10,7 @@
 </div>
     
 ## About Souq 💵
-  
+  <a href="(https://www.notion.so/4fb3b954ceb5417b946ec26bddb3e1a3"> Souq </a>
   <table class="tasks-table">
     <thead>
       <tr>
