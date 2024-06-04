@@ -11,7 +11,7 @@
     
 ## About Souq 💵
 <a href="https://www.notion.so/4fb3b954ceb5417b946ec26bddb3e1a3"> 
-<img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width="30">notion </a>
+<img src="https://media2.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif?cid=ecf05e47a0n3gi1bfqntqmob8g9aid1oyj2wr3ds3mg700bl&rid=giphy.gif" width="30"></a>
   <table class="tasks-table">
     <thead>
     </thead>
