@@ -6,7 +6,9 @@
  <ul>
     <li>Email : yossefa538@gmail.com</li>
 </ul>
- ## About Souq 💵
+</div>
+    
+## About Souq 💵
   
   <table class="tasks-table">
     <thead>
