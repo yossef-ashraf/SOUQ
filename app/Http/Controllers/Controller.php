@@ -2,33 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Http\JsonResponse;
+use App\Http\Traits\ImageTrait;
+use App\Http\Traits\OrderTrait;
+use App\Http\Traits\PaymentTrait;
+use App\Http\Traits\ApiResponseTrait;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function return_success($message, $data): JsonResponse
-    {
-        return response()->json([
-            'message'   => $message,
-            'validation'=> [],
-            'data'      => $data,
-            'code'      => 200
-        ], 200);
-    }
-
-    public function return_fail($message, $validation): JsonResponse
-    {
-        return response()->json([
-            'message'   => $message,
-            'validation'=> $validation,
-            'data'      => [],
-            'code'      => 400
-        ], 400);
-    }
+    use AuthorizesRequests, ValidatesRequests , ApiResponseTrait , ImageTrait , PaymentTrait ,OrderTrait;
 }

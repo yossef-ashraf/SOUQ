@@ -1,29 +1,45 @@
 <?php
 
+
+
 namespace App\Models;
 
-use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comment extends Model
 {
-    use HasFactory;
-    protected $fillable = [
-        'comment',
-        'user_id',
-        'product_id',
-        'status',
-    ];
+	protected $table = 'comments';
 
-    public function User()
+	protected $casts = [
+		'user_id' => 'int',
+		'product_id' => 'int'
+	];
+
+	protected $fillable = [
+		'comment',
+		'user_id',
+		'product_id'
+	];
+    protected $appends = ['name'];
+    public function getNameAttribute()
     {
-    return $this->belongsTo(User::class, 'user_id', 'id');
-    }
 
-    public function Product()
-    {
-    return $this->belongsTo(Product::class, 'product_id', 'id');
-    }
+        $user = $this->user()->select('name')->first();
 
+        if ($user) {
+            return $user->makeHidden(['roles', 'permissions']);
+        }
+
+        return null; // أو يمكنك تعيين قيمة افتراضية أخرى إذا لم يتم العثور على المستخدم
+    }
+	public function product()
+	{
+		return $this->belongsTo(Product::class);
+	}
+
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
 }

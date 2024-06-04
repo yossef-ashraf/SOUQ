@@ -18,16 +18,14 @@ class ChangeLang
      */
     public function handle(Request $request, Closure $next)
     {
-        // $pp=isset($request->header('lang'));
-        // app()->setLocale('es');
-        // app()->setLocale('ar');
+
         app()->setLocale('en');
 
-        // // dd(app()->getLocale(),$request->header('lang'));
         if($request->header('lang') == 'ar' )
             app()->setLocale('ar');
-            elseif($request->header('lang') == 'admin' )
-            app()->setLocale('admin');
+        elseif ($request->header('lang')=='du')
+             app()->setLocale('du');
+
 
         return $next($request);
     }

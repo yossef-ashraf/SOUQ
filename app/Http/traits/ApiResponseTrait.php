@@ -14,7 +14,7 @@ trait ApiResponseTrait{
      */
 
 
-    public function apiResponse($code = 200, $message = null, $errors = null, $data = null){
+    public function apiResponse($code = 200, $message , $errors = null, $data = null){
 
         $array = [
             'status' => $code,

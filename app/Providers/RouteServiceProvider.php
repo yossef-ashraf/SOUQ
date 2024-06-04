@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
+     * The path to your application's "home" route.
      *
      * Typically, users are redirected here after authentication.
      *
@@ -21,12 +21,12 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->configureRateLimiting();
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
 
         $this->routes(function () {
             Route::middleware('api')
@@ -36,17 +36,78 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
-    }
 
-    /**
-     * Configure the rate limiters for the application.
-     *
-     * @return void
-     */
-    protected function configureRateLimiting()
-    {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        Route::macro('crud',function($prefix ,$class , $showAuth = false , $operationAuth = false ,$trashed = false ){
+            if ($showAuth)
+                Route::showAuth($prefix ,$class ,$trashed);
+                else
+                Route::show($prefix ,$class ,$trashed);
+
+                if ($operationAuth)
+                Route::operationAuth($prefix ,$class ,$trashed);
+                else
+                Route::operation($prefix ,$class ,$trashed);
+
+
         });
+
+        Route::macro('show',function($prefix ,$class ,$trashed = false){
+            Route::prefix($prefix)->controller($class)->group(function () use($trashed) {
+                Route::group(['middleware' => ['ChangeLang' ] ], function() use($trashed){
+                Route::get('show', 'show'); // without Trashed
+                Route::post('one', 'showOne');
+                if ($trashed) {
+                    Route::get('all', 'showAll');// with Trashed
+                    Route::get('trashed', 'showTrashed'); // Trashed only
+                }
+            });
+            });
+        });
+
+        Route::macro('showAuth',function($prefix ,$class ,$trashed = false){
+            Route::prefix($prefix)->controller($class)->group(function () use($trashed) {
+                Route::group(['middleware' => ['jwtauth' ] ], function() use($trashed){
+                    Route::group(['middleware' => ['ChangeLang' ] ], function() use($trashed){
+                    Route::get('show', 'show'); // without Trashed
+                    Route::post('one', 'showOne');
+                    if ($trashed) {
+                        Route::get('all', 'showAll');// with Trashed
+                        Route::get('trashed', 'showTrashed'); // Trashed only
+                    }
+              });
+            });
+        });
+        });
+
+        Route::macro('operation',function($prefix ,$class ,$trashed = false){
+            Route::prefix($prefix)->controller($class)->group(function () use($trashed) {
+                Route::group(['middleware' => ['ChangeLang' ] ], function() use($trashed){
+                Route::post('store', 'store');
+                Route::post('update', 'update');
+                Route::post('destroy', 'destroy');
+                if ($trashed) {
+                    Route::post('restore', 'restore');// when Trashed
+                    Route::post('forceDelete', 'forceDelete');// when Trashed
+                }
+            });
+        });
+        });
+
+        Route::macro('operationAuth',function($prefix ,$class ,$trashed = false){
+            Route::prefix($prefix)->controller($class)->group(function () use($trashed) {
+                Route::group(['middleware' => ['jwtauth' ,'ChangeLang'] ], function() use($trashed){
+
+                        Route::post('store', 'store');
+                        Route::post('update', 'update');
+                        Route::post('destroy', 'destroy');
+                        if ($trashed) {
+                            Route::post('restore','restore');
+                            Route::post('forceDelete','forceDelete');
+                        }
+
+            });
+        });
+        });
+
     }
 }
