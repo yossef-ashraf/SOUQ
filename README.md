@@ -9,8 +9,7 @@
 </ul>
 </div>
     
-## About Souq 💵
-  <a href="https://www.notion.so/4fb3b954ceb5417b946ec26bddb3e1a3"> Souq </a>
+##<a href="https://www.notion.so/4fb3b954ceb5417b946ec26bddb3e1a3"> About Souq 💵</a>
   <table class="tasks-table">
     <thead>
     </thead>
