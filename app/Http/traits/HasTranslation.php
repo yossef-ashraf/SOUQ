@@ -16,7 +16,7 @@ trait HasTranslation
     public function toArray()
     {
         $attributes = parent::toArray();
-            if (app()->getLocale() !== 'du') {
+            if (session('getLocaleStop', false)) {
             foreach ($this->getTranslatableAttributes() as $field) {
                 $attributes[$field] = $this->getTranslation($field, \App::getLocale());
             }
