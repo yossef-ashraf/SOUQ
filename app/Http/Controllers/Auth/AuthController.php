@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Models\UserOtp;
 use App\Models\UserWallet;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-
 
 class AuthController extends Controller
 {
@@ -33,8 +33,9 @@ class AuthController extends Controller
         if ($validations->fails()) {
             return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
         }
-        $User =null ;
-        DB::transaction(function () use(&$User,$request) {
+
+        $User = null;
+        DB::transaction(function () use (&$User, $request) {
             $User = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -50,110 +51,112 @@ class AuthController extends Controller
             ]);
         });
 
-
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only('email', 'password');
         $token = auth()->attempt($credentials);
-        return $this->respondWithToken($token , $User);
+        return $this->respondWithToken($token, $User);
     }
-    public function login(Request $request)
+
+    public function login(LoginRequest $request)
     {
-        $validations = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => 'required',
-        ]);
-        if ($validations->fails()) {
-            return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
-        }
-        $credentials = request(['email', 'password']);
-        if (! $token = auth()->attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        if (!$token = auth()->attempt($credentials)) {
             return $this->apiResponse(400, __('lang.notFound'));
         }
-        $User = Auth::User();
-        // dd($User->getAllPermissions());
-        return $this->respondWithToken($token , $User);
+        $User = Auth::user();
+        return $this->respondWithToken($token, $User);
     }
+
     public function logout()
     {
         Auth::logout();
         return $this->apiResponse(200, __('lang.Successfully'));
     }
+
     public function me()
     {
-        $auth=User::where('id',auth()->User()->id)->with('wallet')->first();
-        return $this->apiResponse(200,__('lang.Successfully'),null,$auth);
+        $auth = User::where('id', auth()->user()->id)->with('wallet')->first();
+        return $this->apiResponse(200, __('lang.Successfully'), null, $auth);
     }
+
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh() ,auth()->user() );
+        return $this->respondWithToken(auth()->refresh(), auth()->user());
     }
-    public function verify()
+
+    public function verifying()
     {
-        $id= auth()->User()->id;
-        $user= User::find($id);
+        $id = auth()->user()->id;
+        $user = User::find($id);
         $user->sendEmailVerificationNotification();
         return $this->apiResponse(200, __('lang.Successfully'));
-
     }
-    public function verifys($id,Request $request)
+
+    public function verifys($id, Request $request)
     {
         if (!$request->hasValidSignature()) {
-            return $this->apiResponse(401, __('lang.validationError'), 'Invalid/Expired url provided.');
+            return $this->apiResponse(401, __('lang.validationError'), 'Invalid/Expired URL provided.');
         }
         $user = User::findOrFail($id);
         if (!$user->hasVerifiedEmail()) {
             $user->markEmailAsVerified();
         }
 
-        // return \Redirect::away('https://github.com/yossef-ashraf');
-        // return redirect()->back();
+        // يمكنك هنا تنفيذ أي إجراءات إضافية بعد التحقق
     }
+
     public function resend()
     {
         if (auth()->user()->hasVerifiedEmail()) {
             return $this->apiResponse(401, __('lang.validationError'), 'Email already verified.');
         }
         auth()->user()->sendEmailVerificationNotification();
-        return $this->apiResponse(200,__('lang.Successfully'),null,"Email verification link sent on your email id");
+        return $this->apiResponse(200, __('lang.Successfully'), null, "Email verification link sent on your email id");
     }
+
     public function update(Request $request)
     {
-        $validations = Validator::make($request->all(),[
-            'email' => ['required','email:rfc,dns',Rule::unique('users')->ignore(Auth::User()->id)],
+        $validations = Validator::make($request->all(), [
+            'email' => ['required', 'email:rfc,dns', Rule::unique('users')->ignore(Auth::user()->id)],
             'name' => 'required|min:3',
             'phone'=> 'required',
             'age'=> 'required',
             'gender'=> 'required',
         ]);
+
         if ($validations->fails()) {
             return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
         }
-        $User= User::where('id', auth()->User()->id)->first();
+
+        $User = User::where('id', auth()->user()->id)->first();
         $User->update([
-            'name'=>$request->name,
-            'email'     =>$request->email,
+            'name' => $request->name,
+            'email' => $request->email,
             'phone'=> $request->phone,
             'age'=> $request->age,
             'gender'=> $request->gender,
         ]);
 
-        return $this->apiResponse(200,__('lang.Successfully'),null,$User);
+        return $this->apiResponse(200, __('lang.Successfully'), null, $User);
     }
+
     public function change_password(Request $request)
     {
-        $validations = Validator::make($request->all(),[
+        $validations = Validator::make($request->all(), [
             'old_password' => 'required|min:8',
             'new_password' => 'required|min:8',
             'confirm_password' => "required|same:new_password",
         ]);
+
         if ($validations->fails()) {
             return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
         }
-        $User= User::where('id', auth()->User()->id)->first();
+
+        $User = User::where('id', auth()->user()->id)->first();
         if (Hash::check($request->old_password, $User->password)) {
             $User->update(['password' => Hash::make($request->confirm_password)]);
-            return $this->apiResponse(200,__('lang.Successfully'),null,$User);
-        }else {
-            return $this->apiResponse(400, __('lang.validationError'), 'old password not correct');
+            return $this->apiResponse(200, __('lang.Successfully'), null, $User);
+        } else {
+            return $this->apiResponse(400, __('lang.validationError'), 'Old password not correct');
         }
     }
 
@@ -169,6 +172,7 @@ class AuthController extends Controller
 
         $otp = rand(100000, 999999);
         $user = User::where('email', $request->email)->first();
+
         // إنشاء سجل UserOtp جديد
         UserOtp::create([
             'user_id' => $user->id,
@@ -181,6 +185,7 @@ class AuthController extends Controller
 
         return $this->apiResponse(200, __('lang.Successfully'));
     }
+
     public function check_otp(Request $request)
     {
         $validations = Validator::make($request->all(), [
@@ -210,45 +215,41 @@ class AuthController extends Controller
         }
 
         // إذا تم التحقق بنجاح من الرمز OTP، يمكنك تنفيذ الإجراءات الإضافية هنا
-
-        $token=Str::random(40);
-        $user->update([
-            'remember_token'=> $token
-        ]);
+        $token = Str::random(40);
+        $user->update(['remember_token' => $token]);
 
         // يمكنك حذف سجل OTP بعد استخدامه إذا لزم الأمر
         $otpRecord->delete();
 
-        return $this->apiResponse(200, __('lang.Successfully') , $token);
+        return $this->apiResponse(200, __('lang.Successfully'), $token);
     }
+
     public function check_forget_password(Request $request)
     {
+        $validations = Validator::make($request->all(), [
+            'token' => 'required',
+            'new_password' => ['required', 'min:8'],
+            'confirm_password' => "required|same:new_password",
+        ]);
 
-            $validations = Validator::make($request->all(), [
-                'token' => 'required',
-                'new_password' => ['required','min:8'],
-                'confirm_password' => "required|same:new_password",
+        if ($validations->fails()) {
+            return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
+        }
+
+        $User = User::where('remember_token', $request->token)->first();
+
+        if ($User) {
+            $User->update([
+                'password' => Hash::make($request->confirm_password),
+                'remember_token' => null, // إبطال remember_token بعد الاستخدام
             ]);
-
-            if ($validations->fails()) {
-                return $this->apiResponse(400, __('lang.validationError'), $validations->errors());
-            }
-
-            $User= User::where([['remember_token', $request->token]])->first();
-
-            if ($User) {
-                $User->update(['password' => Hash::make($request->confirm_password)]);
-                $token = Auth::attempt(['email' => $User->email, 'password' => $request->confirm_password]);
-                $User = Auth::User();
-                return $this->respondWithToken($token , $User);
-
-            }else {
-                return $this->apiResponse(404, __('lang.notFound'));
-            }
-
+            $token = Auth::attempt(['email' => $User->email, 'password' => $request->confirm_password]);
+            $User = Auth::user();
+            return $this->respondWithToken($token, $User);
+        } else {
+            return $this->apiResponse(404, __('lang.notFound'));
+        }
     }
-
-
     protected function respondWithToken($token, $User)
     {
         $return=[

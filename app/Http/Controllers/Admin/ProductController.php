@@ -81,7 +81,7 @@ class ProductController extends Controller
             'general_price'           =>$request->general_price,
             'description'             =>$request->description,
             'material'                =>$request->material,
-            'img'                     =>$this->AddImageInPublic('Images','Product',$request->img),
+            'img'                     =>$this->AddFileInPublic('Images','Product',$request->img),
             'category_id'             =>$request->category_id,
             'brand_id'                =>$request->brand_id ?? null,
             'discount'                =>$request->discount ?? null,
@@ -99,7 +99,7 @@ class ProductController extends Controller
             foreach ($detail['images'] as $image) {
                 $productDetailImage =  ProductImage::create([
                     'product_detail_id'  =>$productDetail->id,
-                    'image'              =>$this->AddImageInPublic('Images','Product',$image),
+                    'image'              =>$this->AddFileInPublic('Images','Product',$image),
                 ]);
             }
 
@@ -158,7 +158,7 @@ class ProductController extends Controller
 
                 if ($request->img) {
                     $Product->update([
-                        'img'=>$this-> UpdateImageInPublic('Images','Product',$request->img , $Product->img ),
+                        'img'=>$this-> UpdateFileInPublic('Images','Product',$request->img , $Product->img ),
                     ]);
                 }
         });

@@ -51,7 +51,7 @@ class CategoryController extends Controller
         $Category = Category::create([
             'name'=>$request->name,
             'offer'=>$request->offer,
-            'img'=>$this-> AddImageInPublic('Images','Category',$request->img),
+            'img'=>$this-> AddFileInPublic('Images','Category',$request->img),
         ]);
         return $this->apiResponse(200,__('lang.Successfully'),null,$Category);
     }
@@ -76,7 +76,7 @@ class CategoryController extends Controller
 
                 if ($request->img) {
                     $Category->update([
-                        'img'=>$this-> UpdateImageInPublic('Images','Category',$request->img , $Category->img ),
+                        'img'=>$this-> UpdateFileInPublic('Images','Category',$request->img , $Category->img ),
                     ]);
                 }
         });

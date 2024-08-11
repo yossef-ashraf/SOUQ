@@ -55,7 +55,7 @@ class BlogController extends Controller
             'description'=>$request->description,
             'content'=>$request->content,
             'product_id'=>$request->product_id,
-            'img'=>$this-> AddImageInPublic('Images','Blog',$request->img),
+            'img'=>$this-> AddFileInPublic('Images','Blog',$request->img),
         ]);
         return $this->apiResponse(200,__('lang.Successfully'),null,$Blog);
     }
@@ -84,7 +84,7 @@ class BlogController extends Controller
 
                 if ($request->img) {
                     $Blog->update([
-                        'img'=>$this-> UpdateImageInPublic('Images','Blog',$request->img , $Blog->img ),
+                        'img'=>$this-> UpdateFileInPublic('Images','Blog',$request->img , $Blog->img ),
                     ]);
                 }
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\General;
 
+use App\Http\Requests\Auth\ContactUsRequest;
 use App\Models\Brand;
 use App\Models\Contact;
 use App\Models\Product;
@@ -51,17 +52,8 @@ class GeneralApiController extends Controller
         return $this->apiResponse(200, __('lang.Successfully'), null, $Product);
     }
 
-    public function contactStore(Request $request){
-        $validator = Validator::make($request->all(), [
-            'firstname'=> 'required|max:255',
-            'lastname'=> 'required|max:255',
-            'email'=> 'required|max:255',
-            'message'=> 'required',
-            ]);
-        if ($validator->fails()) {
-        return $this->apiResponse(400, __('lang.validationError'), $validator->errors());
-        }
-        // قم بتطبيق قواعد التحقق هنا إن لزم الأمر
+    public function contactStore(ContactUsRequest $request){
+
         $Contact = Contact::create([
             'firstname'=>$request->firstname,
             'lastname'=>$request->lastname,

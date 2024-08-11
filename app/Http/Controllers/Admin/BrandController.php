@@ -51,7 +51,7 @@ class BrandController extends Controller
         $Brand = Brand::create([
             'name'=>$request->name,
             'offer'=>$request->offer,
-            'img'=>$this-> AddImageInPublic('Images','Brand',$request->img),
+            'img'=>$this-> AddFileInPublic('Images','Brand',$request->img),
         ]);
         return $this->apiResponse(200,__('lang.Successfully'),null,$Brand);
     }
@@ -76,7 +76,7 @@ class BrandController extends Controller
 
                 if ($request->img) {
                     $Brand->update([
-                        'img'=>$this-> UpdateImageInPublic('Images','Brand',$request->img , $Brand->img ),
+                        'img'=>$this-> UpdateFileInPublic('Images','Brand',$request->img , $Brand->img ),
                     ]);
                 }
         });

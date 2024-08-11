@@ -39,7 +39,7 @@ class SliderController extends Controller
         }
 
         $Slider = Slider::create([
-            'image'   =>$this->AddImageInPublic('Images','Slider',$request->image),
+            'image'   =>$this->AddFileInPublic('Images','Slider',$request->image),
         ]);
 
 

@@ -46,7 +46,7 @@ class ProductDetailController extends Controller
             foreach ($detail['images'] as $image) {
                 $ProductDetailImage =  ProductImage::create([
                     'product_detail_id'  =>$ProductDetail->id,
-                    'image'              =>$this->AddImageInPublic('Images','ProductDetail',$image),
+                    'image'              =>$this->AddFileInPublic('Images','ProductDetail',$image),
                 ]);
             }
 
