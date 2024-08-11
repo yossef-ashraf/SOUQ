@@ -36,7 +36,7 @@ Route::group(['middleware' => ['ChangeLang' ] ], function(){
         Route::post('/user/forget/password', 'forget_password');
         Route::post('/user/change/otp', 'check_otp');
         Route::post('/user/change/forget/password', 'check_forget_password');
-        Route::get('/verify', 'verify');
+        Route::get('/verify', 'verifying');
         Route::get('email/verify/{id}', 'verifys')->name('verification.verify');
         Route::get('email/resend', 'resend')->name('verification.resend');
     });
